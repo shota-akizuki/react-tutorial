@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import LANGUAGES from "./const/languages";
 import { Form } from "./Form";
 import List from "./List";
 
@@ -9,6 +10,12 @@ import List from "./List";
 export const App = () => {
   //状態を変更するための関数をここに定義
   const [tab, setTab] = useState("list");
+  const [langs, setlangs] = useState(LANGUAGES);
+  const addLang = (lang) => {
+    //スプレッド構文によって、一番後ろにlangを追加した配列をsetlangsで定義
+    setlangs([...langs, lang]);
+    setTab("list");
+  };
 
   return (
     <div>
@@ -19,7 +26,15 @@ export const App = () => {
         </ul>
       </header>
       <hr />
-      {tab === "list" ? <List /> : <Form />}
+      {tab === "list" ? (
+        <List langs={langs} />
+      ) : (
+        <Form
+          //子コンポーネントから親コンポーネントのaddLang関数を呼ぶために、
+          //onAddLangというpropsを作る
+          onAddLang={addLang}
+        />
+      )}
     </div>
   );
 };

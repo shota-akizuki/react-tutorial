@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-export const Form = () => {
+export const Form = ({ onAddLang }) => {
   const [text, settext] = useState("");
   const submitForm = (event) => {
     //eventを受け取った時に、ページ遷移が走ってしまわないように
     event.preventDefault();
-    console.log(text);
+    onAddLang(text);
   };
 
   return (
