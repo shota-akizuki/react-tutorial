@@ -1,13 +1,15 @@
 import React from "react";
 
+const LANGUAGES = ["JavaScript", "Dart", "TypeScript", "Swift", "Kotlin"];
+
 class List extends React.Component {
   //propsはrenderメソッドの中に書く
   render() {
-    const { title } = this.props;
     return (
       <div>
-        <p>{title}</p>
-        <div>リストです</div>
+        {LANGUAGES.map((lang, index) => {
+          return <div key={index}>{lang}</div>;
+        })}
       </div>
     );
   }
