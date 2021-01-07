@@ -1,5 +1,5 @@
 import React from "react";
-import LANGUAGES from "./const/languages";
+import { getLanguages } from "./const/languages";
 import Form from "./Form";
 import List from "./List";
 class App extends React.Component {
@@ -7,7 +7,16 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { tab: "list", langs: LANGUAGES };
+    this.state = { tab: "list", langs: [] };
+  }
+
+  componentDidMount() {
+    console.log("App.js:componentDidMount");
+    this.fetchLanguages();
+  }
+  async fetchLanguages() {
+    const langs = await getLanguages();
+    this.setState({ langs });
   }
 
   //Form.jsに渡す関数
