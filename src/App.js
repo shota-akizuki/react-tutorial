@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import LANGUAGES from "./const/languages";
+import React, { useState, useEffect } from "react";
+import { getLanguages } from "./const/languages";
 import { Form } from "./Form";
 import List from "./List";
 
@@ -10,7 +10,22 @@ import List from "./List";
 export const App = () => {
   //状態を変更するための関数をここに定義
   const [tab, setTab] = useState("list");
-  const [langs, setlangs] = useState(LANGUAGES);
+  const [langs, setlangs] = useState([]);
+
+  //useEffectはMountingとUpdating時に発火する関数
+  //第二引数に空の配列を渡すとMountingの時だけ発火する
+  //つまり、配列に入ってる変数のいずれかが変更されたら発火する
+  useEffect(() => {
+    console.log("App.js:useEffect");
+    fetchLanguages();
+  }, []);
+
+  const fetchLanguages = async () => {
+    const languages = await getLanguages();
+    //langsに現在のstateを反映させるメソッド
+    setlangs(languages);
+  };
+
   const addLang = (lang) => {
     //スプレッド構文によって、一番後ろにlangを追加した配列をsetlangsで定義
     setlangs([...langs, lang]);
