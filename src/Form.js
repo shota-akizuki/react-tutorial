@@ -1,4 +1,31 @@
 import React, { useState } from "react";
+import { Button } from "./components/Button";
+import styled from "styled-components";
+
+const Container = styled.div`
+  padding: 12px 64px;
+`;
+
+const Label = styled.label`
+  display: flex;
+  color: #757575;
+  font-size: 14px;
+  font-weight: bold;
+`;
+const Input = styled.input`
+  border-radius: 3px;
+  padding: 4px 8px;
+  border: 1px solid black;
+`;
+
+//()で既存のコンポーネントを拡張する
+const FormButton = styled(Button)`
+  width: 120px;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 24px;
+`;
 
 export const Form = ({ onAddLang }) => {
   const [text, settext] = useState("");
@@ -9,14 +36,15 @@ export const Form = ({ onAddLang }) => {
   };
 
   return (
-    <div>
+    <Container>
       <h4>新しい言語の追加</h4>
       <form
         //基本的にformの中ではonSubmitを使う（buttonに処理しない）
         onSubmit={submitForm}
       >
         <div>
-          <input
+          <Label>言語</Label>
+          <Input
             //Reactでinputで反映する時の処理
             //buttonにonClick処理にしてしまうと、Enterに反応しない
             //onChange={(e) => settext(e.target.value)でeventを受け取れる
@@ -25,11 +53,11 @@ export const Form = ({ onAddLang }) => {
             onChange={(e) => settext(e.target.value)}
           />
         </div>
-        <div>
-          <button>追加</button>
-        </div>
+        <ButtonContainer>
+          <FormButton>追加</FormButton>
+        </ButtonContainer>
       </form>
-    </div>
+    </Container>
   );
 };
 
