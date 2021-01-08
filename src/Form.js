@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "./components/Button";
 import styled from "styled-components";
-
-const Container = styled.div`
-  padding: 12px 64px;
-`;
+import { TabBodyContainer } from "./components/tab-body-container";
 
 const Label = styled.label`
   display: flex;
@@ -36,8 +33,7 @@ export const Form = ({ onAddLang }) => {
   };
 
   return (
-    <Container>
-      <h4>新しい言語の追加</h4>
+    <TabBodyContainer title="新しい言語の追加">
       <form
         //基本的にformの中ではonSubmitを使う（buttonに処理しない）
         onSubmit={submitForm}
@@ -57,7 +53,7 @@ export const Form = ({ onAddLang }) => {
           <FormButton>追加</FormButton>
         </ButtonContainer>
       </form>
-    </Container>
+    </TabBodyContainer>
   );
 };
 

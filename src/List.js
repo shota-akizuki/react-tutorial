@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-
-const Container = styled.div`
-  padding: 12px 64px;
-`;
+import { TabBodyContainer } from "./components/tab-body-container";
 
 const ListItem = styled.div`
   padding: 8px 16px;
@@ -29,11 +26,14 @@ export const List = ({ langs }) => {
   //ここでは各言語の文字列のリストをJSXのHTMLリスト（divタグ）に変更
   //JSXで繰り返しをするときはkey（ユニークである必要あり）を設定する必要がある（ここでは配列のindex）
   return (
-    <Container>
-      {langs.map((lang, index) => {
-        return <ListItem key={index}>{lang}</ListItem>;
-      })}
-    </Container>
+    <TabBodyContainer title="取り扱い言語リスト">
+      <div>
+        {" "}
+        {langs.map((lang, index) => {
+          return <ListItem key={index}>{lang}</ListItem>;
+        })}
+      </div>
+    </TabBodyContainer>
   );
 };
 
