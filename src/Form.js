@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "./components/Button";
 import styled from "styled-components";
 import { TabBodyContainer } from "./components/tab-body-container";
+import { FormModal } from "./FormModal";
 
 const Label = styled.label`
   display: flex;
@@ -26,10 +27,12 @@ const ButtonContainer = styled.div`
 
 export const Form = ({ onAddLang }) => {
   const [text, settext] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
   const submitForm = (event) => {
     //eventを受け取った時に、ページ遷移が走ってしまわないように
     event.preventDefault();
-    onAddLang(text);
+    setShowModal(true);
   };
 
   return (
@@ -53,6 +56,15 @@ export const Form = ({ onAddLang }) => {
           <FormButton>追加</FormButton>
         </ButtonContainer>
       </form>
+      {
+        //showModalがtrueならFormModalを表示
+        showModal && (
+          <FormModal
+            confirm={() => onAddLang(text)}
+            cancel={() => setShowModal(false)}
+          />
+        )
+      }
     </TabBodyContainer>
   );
 };
