@@ -67,14 +67,11 @@ class App extends React.Component {
             </HeaderLi>
           </HeaderUl>
         </Header>
-
-        <div>
-          {tab === "list" ? (
-            <List langs={langs} />
-          ) : (
-            <Form onAddLang={(lang) => this.addLang(lang)} />
-          )}
-        </div>
+        {tab === "list" ? (
+          <List langs={langs} />
+        ) : (
+          <Form onAddLang={(lang) => this.addLang(lang)} />
+        )}
       </div>
     );
   }

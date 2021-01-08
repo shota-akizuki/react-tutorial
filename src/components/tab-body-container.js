@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { Component } from "react";
+import React from "react";
 const Container = styled.div`
   padding: 14px 64px;
 `;
