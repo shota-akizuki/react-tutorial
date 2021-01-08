@@ -1,6 +1,7 @@
 import React from "react";
 import { getLanguages } from "./const/languages";
 import Form from "./Form";
+import { withLoading } from "./hoc/withLoading";
 import List from "./List";
 import styled from "styled-components";
 
@@ -31,16 +32,7 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { tab: "list", langs: [] };
-  }
-
-  componentDidMount() {
-    console.log("App.js:componentDidMount");
-    this.fetchLanguages();
-  }
-  async fetchLanguages() {
-    const langs = await getLanguages();
-    this.setState({ langs });
+    this.state = { tab: "list", langs: props.data };
   }
 
   //Form.jsに渡す関数
@@ -88,4 +80,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withLoading(App, getLanguages);

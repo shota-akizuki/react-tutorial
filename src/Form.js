@@ -1,10 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "./components/Button";
-
-const Container = styled.div`
-  padding: 12px 64px;
-`;
+import { TabBodyContainer } from "./components/tab-body-container";
 
 const Label = styled.label`
   display: flex;
@@ -44,8 +41,7 @@ export class Form extends React.Component {
   render() {
     const { text } = this.state;
     return (
-      <Container>
-        <h4>新しい言語を追加</h4>
+      <TabBodyContainer title="新しい言語を追加">
         <form
           //eventを関数にちゃんと渡してあげる
           onSubmit={(e) => this.submitForm(e)}
@@ -67,7 +63,7 @@ export class Form extends React.Component {
             </ButtonContainer>
           </div>
         </form>
-      </Container>
+      </TabBodyContainer>
     );
   }
 }
