@@ -2,6 +2,30 @@ import React from "react";
 import { getLanguages } from "./const/languages";
 import Form from "./Form";
 import List from "./List";
+import styled from "styled-components";
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 64px 0;
+  border-bottom: 1px solid #e0e0e0;
+`;
+
+const HeaderUl = styled.ul`
+  display: flex;
+  margin: 0;
+  padding: 0;
+`;
+
+const HeaderLi = styled.li`
+  list-style: none;
+  padding: 4px 12px;
+  cursor: pointer;
+  //JavaScriptの関数を$の中に入れられる
+  //選択された時だけの処理
+  border-bottom: ${(props) => (props.focused ? "2px solid #F44366" : "none")};
+`;
+
 class App extends React.Component {
   //クラスコンポーネントでstateを扱う場合はthis.stateに初期値を代入する
 
@@ -35,13 +59,23 @@ class App extends React.Component {
     const { tab, langs } = this.state;
     return (
       <div>
-        <header>
-          <ul>
-            <li onClick={() => this.setState({ tab: "list" })}>List</li>
-            <li onClick={() => this.setState({ tab: "form" })}>Form</li>
-          </ul>
-        </header>
-        <hr></hr>
+        <Header>
+          <HeaderUl>
+            <HeaderLi
+              focused={tab === "list"}
+              onClick={() => this.setState({ tab: "list" })}
+            >
+              List
+            </HeaderLi>
+            <HeaderLi
+              focused={tab === "form"}
+              onClick={() => this.setState({ tab: "form" })}
+            >
+              Form
+            </HeaderLi>
+          </HeaderUl>
+        </Header>
+
         <div>
           {tab === "list" ? (
             <List langs={langs} />
