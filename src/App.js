@@ -4,7 +4,6 @@ import { Form } from "./Form";
 import List from "./List";
 import styled from "styled-components";
 import { withLoading } from "./hoc/withLoading";
-import { Modal } from "./components/modal";
 
 //headerタグを元にしたコンポーネント
 const Header = styled.header`
