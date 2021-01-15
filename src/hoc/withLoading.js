@@ -1,8 +1,11 @@
-import styled from "styled-components";
-import React, { useEffect, useState } from "react";
+import styled, { ThemeContext } from "styled-components";
+import React, { useEffect, useState, useContext } from "react";
 
 const LoadDiv = styled.div`
+  height: 100%;
   padding: 36px;
+  color: ${({ theme }) => theme.color};
+  background-color: ${({ theme }) => theme.backgroundColor};
 `;
 
 //dataに値があるならWrappedComponentを返す
@@ -10,6 +13,7 @@ const LoadDiv = styled.div`
 export const withLoading = (WrappedComponent, fetchData) => {
   return () => {
     const [data, setdata] = useState(null);
+    const [theme] = useContext(ThemeContext);
 
     //Mountingされた時にデータをfetchする
 
@@ -26,7 +30,7 @@ export const withLoading = (WrappedComponent, fetchData) => {
       setdata(data);
     };
 
-    const Loading = <LoadDiv>ロード中...</LoadDiv>;
+    const Loading = <LoadDiv theme={theme}>ロード中...</LoadDiv>;
     return data ? <WrappedComponent data={data} /> : Loading;
   };
 };
