@@ -1,35 +1,22 @@
 import React from "react";
-import { getLanguages } from "./const/languages";
 import Form from "./Form";
-import { withLoading } from "./hoc/withLoading";
 import List from "./List";
 import styled from "styled-components";
+import Header from "./Header";
+import { ThemeContext } from "./contexts/ThemeContext";
 
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  padding: 24px 64px 0;
-  border-bottom: 1px solid #e0e0e0;
-`;
-
-const HeaderUl = styled.ul`
-  display: flex;
-  margin: 0;
-  padding: 0;
-`;
-
-const HeaderLi = styled.li`
-  list-style: none;
-  padding: 4px 12px;
-  cursor: pointer;
-  //JavaScriptの関数を$の中に入れられる
-  //選択された時だけの処理
-  border-bottom: ${(props) => (props.focused ? "2px solid #F44366" : "none")};
+const Container = styled.div`
+  height: 100%;
+  color: ${({ theme }) => theme.color};
+  background-color: ${({ theme }) => theme.backgroundColor};
 `;
 
 class App extends React.Component {
-  //クラスコンポーネントでstateを扱う場合はthis.stateに初期値を代入する
+  //クラスコンポーネントでContextを利用するにはcontextTypeというstaticを利用する
+  //これによってthis.contextのなかにthemeが入った
+  static contextType = ThemeContext;
 
+  //クラスコンポーネントでstateを扱う場合はthis.stateに初期値を代入する
   constructor(props) {
     super(props);
     this.state = { tab: "list", langs: props.data };
@@ -49,32 +36,18 @@ class App extends React.Component {
   render() {
     //stateをtabから取り出して表示する
     const { tab, langs } = this.state;
+    const [theme] = this.context;
     return (
-      <div>
-        <Header>
-          <HeaderUl>
-            <HeaderLi
-              focused={tab === "list"}
-              onClick={() => this.setState({ tab: "list" })}
-            >
-              List
-            </HeaderLi>
-            <HeaderLi
-              focused={tab === "form"}
-              onClick={() => this.setState({ tab: "form" })}
-            >
-              Form
-            </HeaderLi>
-          </HeaderUl>
-        </Header>
+      <Container theme={theme}>
+        <Header tab={"tab"} setTab={(t) => this.setState({ tab: t })} />
         {tab === "list" ? (
           <List langs={langs} />
         ) : (
           <Form onAddLang={(lang) => this.addLang(lang)} />
         )}
-      </div>
+      </Container>
     );
   }
 }
 
-export default withLoading(App, getLanguages);
+export default App;
